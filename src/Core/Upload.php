@@ -26,9 +26,12 @@ class Upload {
 		$this->config = config('nova-media-library');
 		$this->file = $file;
 		$this->extension = strtolower($file->getClientOriginalExtension());
-
 		$this->title = data_get(pathinfo($file->getClientOriginalName()), 'filename', Str::random());
-		$this->name = Str::slug($this->title) .'-'. time() . Str::random(5) .'.'. $this->extension;
+		$origin_file_name = data_get($this->config, 'origin_file_name');
+		if($origin_file_name)
+			$this->name = Str::slug($this->title) . '.' . $this->extension;
+		else
+			$this->name = Str::slug($this->title) .'-'. time() . Str::random(5) .'.'. $this->extension;
 		$this->options['mime'] = explode('/', $file->getMimeType())[0];
 	}
 
