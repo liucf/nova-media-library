@@ -29,7 +29,7 @@ class Upload {
 		$this->title = data_get(pathinfo($file->getClientOriginalName()), 'filename', Str::random());
 		$origin_file_name = data_get($this->config, 'origin_file_name');
 		if($origin_file_name)
-			$this->name = Str::slug($this->title) . '.' . $this->extension;
+			$this->name = $this->title . '.' . $this->extension;
 		else
 			$this->name = Str::slug($this->title) .'-'. time() . Str::random(5) .'.'. $this->extension;
 		$this->options['mime'] = explode('/', $file->getMimeType())[0];
